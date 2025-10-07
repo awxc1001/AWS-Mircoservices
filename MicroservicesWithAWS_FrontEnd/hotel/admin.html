@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Admin Dashboard</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="scripts/amazon-cognito-auth.js"></script>
+    <script src="scripts/cognito.js?v=20251006"></script>
+    <script src="scripts/main.js?v=20251006"></script>
+</head>
+<body>
+    <style>
+        .hotel-item { display:flex; align-items:center; gap:12px; margin:12px 0; }
+        .hotel-thumb { width: 160px; height: auto; object-fit: cover; border-radius: 6px; }
+        .hotel-info { line-height: 1.4; }
+    </style>
+    <h1>Admin Dashboard</h1>
+    
+    <div>
+        <h2>Hotel Management</h2>
+        <a href="addHotel.html">Add New Hotel</a>
+    </div>
+
+    <!-- Simple Hotels list -->
+    <div>
+        <h2>Hotels</h2>
+        <button id="btnRefreshHotels">Refresh</button>
+        <ul id="hotelsList"></ul>
+    </div>
+    
+    <br>
+    <button id="btnSignOut">Sign Out</button>
+
+    <script>
+        $(function () {
+            cognitoApp.Init();
+            // Check if user is authenticated, if not redirect to login
+            var currentUser = cognitoApp.auth.getCurrentUser();
+            if (!currentUser) {
+                window.location.replace("http://localhost:8080/hotel");
+                return;
+            }
+
+            // Populate tokens, then load hotels
+            pageLoad();
+            if (typeof loadHotels === 'function') {
+                loadHotels();
+                $("#btnRefreshHotels").on("click", loadHotels);
+            } else {
+                console.error('loadHotels is not defined. main.js may not be loaded.');
+            }
+            
+            // Set up sign out functionality
+            $("#btnSignOut").on("click", function () {
+                cognitoApp.auth.signOut();
+                setTimeout(function() {
+                    window.location.replace("http://localhost:8080/hotel");
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>

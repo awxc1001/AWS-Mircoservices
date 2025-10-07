@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hotel Management System</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="scripts/amazon-cognito-auth.js"></script>
+    <script src="scripts/cognito.js"></script>
+    <script src="scripts/main.js"></script>
+</head>
+<body>
+    <button id="btnSignIn">Sign In</button>
+    <button id="btnSignOut" style="display: none;">Sign Out</button>
+
+    <script>
+        $(function () {
+            cognitoApp.Init();
+            pageLoad();
+        });
+    </script>
+</body>
+</html>
