@@ -1,0 +1,27 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# VS Code
+.vscode/
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# AWS Lambda build artifacts
+*.zip
+
+# Logs
+*.log
+
+# Others
+.env
+secrets.json
+appsettings.*.local.json
+aws.txt
+MicroservicesWithAWS_FrontEnd/hotel/images/
